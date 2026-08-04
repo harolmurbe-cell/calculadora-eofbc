@@ -1,4 +1,4 @@
-[index.html](https://github.com/user-attachments/files/30723423/index.html)
+[index.html](https://github.com/user-attachments/files/30723485/index.html)
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -308,44 +308,7 @@
                     '<td style="text-align:right;"><div style="font-weight:bold; color:#fbbf24;">' + autoResMN.toFixed(0) + ' MN</div>' +
                     '<div style="font-size:0.6rem; color:#64748b;">' + (autoResMN * 1.852).toFixed(0) + ' KM</div></td>' +
                     '</tr>';
-           /* FIX DE TABLA - FONDO OSCURO TÁCTICO */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #0b1329 !important; /* Mismo fondo oscuro de la tarjeta */
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-/* ENCABEZADOS DE TABLA */
-th {
-    background-color: #0b1329 !important;
-    color: #94a3b8 !important; /* Gris claro legible */
-    border-bottom: 1px solid #1e293b !important;
-    padding: 10px 8px;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-}
-
-/* CELDAS Y DATOS */
-td {
-    background-color: #0b1329 !important;
-    color: #f8fafc !important; /* Blanco suave */
-    border-bottom: 1px solid #1e293b !important;
-    padding: 12px 8px;
-    font-family: monospace;
-}
-
-/* TEXTOS ESPECÍFICOS DENTRO DE LA TABLA */
-td .nombre-bote {
-    color: #ffffff !important;
-    font-weight: bold;
-}
-
-td .capacidad, td .costo {
-    color: #cbd5e1 !important; /* Gris claro visible sobre fondo oscuro */
-    font-weight: 600;
-} }
+            }
 
             var totalRestante = Math.max(0, totalCapacidad - totalConsumo);
             var totalPctGastado = totalCapacidad > 0 ? Math.min(100, (totalConsumo / totalCapacidad) * 100) : 0;
