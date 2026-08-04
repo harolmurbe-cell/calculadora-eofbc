@@ -215,6 +215,44 @@
                         '<td style="color:#ffffff !important;font-weight:bold;">' + fmtCOP(cost) + '</td>' +
                         '<td style="text-align:right;"><b style="color:#fbbf24 !important;">' + aRes.toFixed(0) + ' MN</b><br><span style="color:#64748b !important;font-size:0.6rem">' + (aRes * 1.852).toFixed(0) + ' KM</span></td>' +
                         '</tr>';
+                        /* FIX DE TABLA - FONDO OSCURO TÁCTICO */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #0b1329 !important; /* Mismo fondo oscuro de la tarjeta */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* ENCABEZADOS DE TABLA */
+th {
+    background-color: #0b1329 !important;
+    color: #94a3b8 !important; /* Gris claro legible */
+    border-bottom: 1px solid #1e293b !important;
+    padding: 10px 8px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+/* CELDAS Y DATOS */
+td {
+    background-color: #0b1329 !important;
+    color: #f8fafc !important; /* Blanco suave */
+    border-bottom: 1px solid #1e293b !important;
+    padding: 12px 8px;
+    font-family: monospace;
+}
+
+/* TEXTOS ESPECÍFICOS DENTRO DE LA TABLA */
+td .nombre-bote {
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+td .capacidad, td .costo {
+    color: #cbd5e1 !important; /* Gris claro visible sobre fondo oscuro */
+    font-weight: 600;
+}
                 }
 
                 var totRest = Math.max(0, totCap - totCons);
