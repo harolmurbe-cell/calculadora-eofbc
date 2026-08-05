@@ -1,4 +1,4 @@
-[index (1).html](https://github.com/user-attachments/files/30723522/index.1.html)
+[gemini-code-1785865578772.html](https://github.com/user-attachments/files/30759762/gemini-code-1785865578772.html)
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -32,7 +32,7 @@
         input:focus, select:focus { border-color: #10b981; }
         
         .toggle-group { display: flex; background: #020617; border: 1px solid #1e293b; padding: 3px; border-radius: 10px; gap: 4px; }
-        .btn-toggle { flex: 1; padding: 12px; border: none; background: transparent; color: #94a3b8; font-size: 0.75rem; font-weight: 700; border-radius: 8px; cursor: pointer; text-align: center; }
+        .btn-toggle { flex: 1; padding: 10px; border: none; background: transparent; color: #94a3b8; font-size: 0.75rem; font-weight: 700; border-radius: 8px; cursor: pointer; text-align: center; }
         .btn-toggle.active { background: #059669; color: #fff; }
         
         .flex-row { display: flex; gap: 8px; }
@@ -77,14 +77,14 @@
                 <div class="field-group">
                     <label>Modo de Cálculo:</label>
                     <div class="toggle-group">
-                        <button type="button" id="btnModoGrupo" class="btn-toggle active" onclick="setModo('grupo')">Consolidado</button>
-                        <button type="button" id="btnModoInd" class="btn-toggle" onclick="setModo('individual')">Individual</button>
+                        <button type="button" id="btnModoGrupo" class="btn-toggle active">Consolidado</button>
+                        <button type="button" id="btnModoInd" class="btn-toggle">Individual</button>
                     </div>
                 </div>
 
                 <div class="field-group">
                     <label for="unidadSelect">Unidad Operativa:</label>
-                    <select id="unidadSelect" onchange="onChangeUnidad()">
+                    <select id="unidadSelect">
                         <option value="EOFBC_52_2">EOFBC 52-2 (4 Botes Bimotor)</option>
                         <option value="EOFBC_52_1">EOFBC 52-1 (4 Botes Bimotor)</option>
                     </select>
@@ -92,14 +92,14 @@
 
                 <div id="containerBoteInd" class="field-group hidden">
                     <label for="boteIndSelect">Seleccionar Bote:</label>
-                    <select id="boteIndSelect" onchange="calcular()"></select>
+                    <select id="boteIndSelect"></select>
                 </div>
 
                 <div class="field-group">
                     <label for="distanciaInput">Distancia a Navegar:</label>
                     <div class="flex-row">
-                        <input type="number" id="distanciaInput" value="50" min="0.1" step="0.1" inputmode="decimal" oninput="calcular()" onchange="calcular()">
-                        <select id="unidadDistSelect" style="width: 90px;" onchange="calcular()">
+                        <input type="number" id="distanciaInput" value="50" min="0.1" step="0.1" inputmode="decimal">
+                        <select id="unidadDistSelect" style="width: 90px;">
                             <option value="MN">MN</option>
                             <option value="KM">KM</option>
                             <option value="MI">MI</option>
@@ -109,7 +109,7 @@
 
                 <div class="field-group">
                     <label for="precioGalonInput">Precio Galón (COP):</label>
-                    <input type="number" id="precioGalonInput" value="16000" min="0" step="100" inputmode="numeric" oninput="calcular()" onchange="calcular()">
+                    <input type="number" id="precioGalonInput" value="16000" min="0" step="100" inputmode="numeric">
                 </div>
 
                 <div style="background: #020617; padding: 10px; border-radius: 8px; border: 1px solid #1e293b; font-size: 0.65rem; color: #94a3b8;">
@@ -208,14 +208,9 @@
             for (var i = 0; i < botes.length; i++) {
                 var opt = document.createElement('option');
                 opt.value = i;
-                opt.text = botes[i].nombre + " (" + botes[i].motor + " - " + botes[i].cap + " Gln)";
+                opt.innerText = botes[i].nombre + " (" + botes[i].motor + " - " + botes[i].cap + " Gln)";
                 boteSelect.appendChild(opt);
             }
-        }
-
-        function onChangeUnidad() {
-            renderSeleccionBote();
-            calcular();
         }
 
         function setModo(modo) {
@@ -254,7 +249,7 @@
             
             var rawDist = document.getElementById('distanciaInput').value;
             var distVal = parseFloat(rawDist);
-            if (isNaN(distVal) || distVal < 0) distVal = 0;
+            if (isNaN(distVal) || distVal <= 0) distVal = 0;
 
             var unidadDist = document.getElementById('unidadDistSelect').value || "MN";
             
@@ -275,7 +270,7 @@
                 document.getElementById('tituloDetalle').innerText = "Consolidado: " + unidadInfo.nombre;
             } else {
                 var indexBote = parseInt(document.getElementById('boteIndSelect').value);
-                if (isNaN(indexBote) || indexBote < 0) indexBote = 0;
+                if (isNaN(indexBote)) indexBote = 0;
                 botesACalcular = [unidadInfo.botes[indexBote] || unidadInfo.botes[0]];
                 document.getElementById('tituloDetalle').innerText = "Detalle: " + botesACalcular[0].nombre;
             }
@@ -332,12 +327,30 @@
             document.getElementById('tablaCuerpo').innerHTML = tablaHTML;
         }
 
-        // Ejecución inmediata al cargar el script
-        renderSeleccionBote();
-        calcular();
+        function bindEvents() {
+            document.getElementById('btnModoGrupo').onclick = function() { setModo('grupo'); };
+            document.getElementById('btnModoInd').onclick = function() { setModo('individual'); };
 
-        // Respaldo para cuando la página haya cargado por completo
+            var elementIds = ['unidadSelect', 'boteIndSelect', 'distanciaInput', 'unidadDistSelect', 'precioGalonInput'];
+            var events = ['input', 'change', 'keyup', 'blur'];
+
+            for (var i = 0; i < elementIds.length; i++) {
+                var el = document.getElementById(elementIds[i]);
+                if (el) {
+                    for (var j = 0; j < events.length; j++) {
+                        el.addEventListener(events[j], (function(id) {
+                            return function() {
+                                if (id === 'unidadSelect') renderSeleccionBote();
+                                calcular();
+                            };
+                        })(elementIds[i]));
+                    }
+                }
+            }
+        }
+
         window.onload = function() {
+            bindEvents();
             renderSeleccionBote();
             calcular();
         };
