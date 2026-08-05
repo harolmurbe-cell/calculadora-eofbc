@@ -53,6 +53,14 @@
         .progress-bar { width: 100%; background: #020617; border-radius: 4px; height: 6px; overflow: hidden; margin-top: 4px; border: 1px solid #1e293b; }
         .progress-fill { height: 100%; background: #10b981; }
         .hidden { display: none !important; }
+table {
+    background-color: #0b1329 !important;
+}
+
+th, td {
+    background-color: #0b1329 !important;
+    border-bottom: 1px solid #1e293b !important;
+}
     </style>
 </head>
 <body>
@@ -294,15 +302,15 @@
                 if (pctGastadoBote > 80) colorBarra = "#f43f5e";
                 else if (pctGastadoBote > 60) colorBarra = "#f59e0b";
 
-                tablaHTML += '<tr>' +
-                    '<td><div style="font-weight:bold; color:#fff;">' + b.nombre + '</div><div style="font-size:0.65rem; color:#34d399;">' + b.motor + '</div></td>' +
-                    '<td style="text-align:center;">' + b.cap + ' Gln</td>' +
-                    '<td style="text-align:center;"><span style="font-weight:bold; color:#34d399;">' + consumoBote.toFixed(1) + ' Gln</span>' +
-                    '<div class="progress-bar"><div class="progress-fill" style="width: ' + pctGastadoBote + '%; background: ' + colorBarra + ';"></div></div></td>' +
-                    '<td style="text-align:center; font-weight:bold;">' + formatoCOP(costoBote) + '</td>' +
-                    '<td style="text-align:right;"><div style="font-weight:bold; color:#fbbf24;">' + autoResMN.toFixed(0) + ' MN</div>' +
-                    '<div style="font-size:0.6rem; color:#64748b;">' + (autoResMN * 1.852).toFixed(0) + ' KM</div></td>' +
-                    '</tr>';
+               tablaHTML += '<tr>' +
+    '<td><div style="font-weight:bold; color:#ffffff !important;">' + b.nombre + '</div><div style="font-size:0.65rem; color:#34d399 !important;">' + b.motor + '</div></td>' +
+    '<td style="text-align:center; color:#cbd5e1 !important; font-weight:600;">' + b.cap + ' Gln</td>' +
+    '<td style="text-align:center;"><span style="font-weight:bold; color:#34d399 !important;">' + consumoBote.toFixed(1) + ' Gln</span>' +
+    '<div class="progress-bar"><div class="progress-fill" style="width: ' + pctGastadoBote + '%; background: ' + colorBarra + ';"></div></div></td>' +
+    '<td style="text-align:center; font-weight:bold; color:#ffffff !important;">' + formatoCOP(costoBote) + '</td>' +
+    '<td style="text-align:right;"><div style="font-weight:bold; color:#fbbf24 !important;">' + autoResMN.toFixed(0) + ' MN</div>' +
+    '<div style="font-size:0.6rem; color:#94a3b8 !important;">' + (autoResMN * 1.852).toFixed(0) + ' KM</div></td>' +
+    '</tr>';
             }
 
             var totalRestante = Math.max(0, totalCapacidad - totalConsumo);
