@@ -1,4 +1,4 @@
-[calculadora.html](https://github.com/user-attachments/files/30759762/Calculadora Tactica.html)
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
