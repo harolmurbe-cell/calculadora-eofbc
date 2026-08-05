@@ -61,6 +61,52 @@ th, td {
     background-color: #0b1329 !important;
     border-bottom: 1px solid #1e293b !important;
 }
+ /* FORZAR AJUSTE AL ANCHO DE PANTALLA MÓVIL */
+html, body {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 8px !important;
+    overflow-x: hidden !important; /* Corta cualquier desborde lateral */
+    box-sizing: border-box !important;
+}
+
+.container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+}
+
+/* Ajusta las tarjetas de resultados para que quepan de a 2 en celular */
+.summary-grid, .grid-2 {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+    width: 100% !important;
+}
+
+/* Si la tabla no cabe, este contenedor permite deslizar SOLO la tabla y no toda la página */
+.table-container {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    width: 100% !important;
+}
+
+/* Compacta un poco los textos en pantallas de celular */
+@media (max-width: 480px) {
+    th, td {
+        padding: 6px 2px !important;
+        font-size: 0.65rem !important;
+    }
+    .sum-val {
+        font-size: 0.95rem !important;
+    }
+}
     </style>
 </head>
 <body>
