@@ -1,4 +1,4 @@
-[gemini-code-1785865578772.html](https://github.com/user-attachments/files/30759762/gemini-code-1785865578772.html)
+[calculadora.html](https://github.com/user-attachments/files/30759762/Calculadora Tactica.html)
 <!DOCTYPE html>
 <html lang="es">
 <head>
