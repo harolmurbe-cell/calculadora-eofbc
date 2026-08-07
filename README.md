@@ -185,11 +185,12 @@ table {
 
 <!-- RÉRGMEN DE REVOLUCIONES -->
 <div class="field-group">
-    <label for="rpmSelect">Régimen de Marcha (RPM):</label>
+    <label for="rpmSelect">Régimen de Marcha (RPM del Motor Principal / 90HP):</label>
     <select id="rpmSelect">
-        <option value="1.0">Crucero Táctico (4.000 RPM)</option>
-        <option value="0.80">Velocidad Mínima / Patrullaje (2.500 RPM)</option>
-        <option value="1.40">Máximas Revoluciones (5.500 RPM +40%)</option>
+        <option value="2500">2.500 RPM (Velocidad Mínima / Patrullaje)</option>
+        <option value="4000" selected>4.000 RPM (Crucero Económico)</option>
+        <option value="4800">4.800 RPM (Crucero Táctico de Formación)</option>
+        <option value="5500">5.500 RPM (Máximas Revoluciones / Interdicción)</option>
     </select>
 </div>
             <!-- RESULTADOS -->
@@ -314,7 +315,24 @@ table {
         function formatoCOP(valor) {
             return "$" + Math.round(valor).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
-
+// Función que ajusta el factor según las RPM seleccionadas y el caballaje del bote
+function obtenerFactorRPM(rpmSeleccionadas, hpBote) {
+    var rpm = parseInt(rpmSeleccionadas);
+    
+    if (hpBote <= 90) {
+        // Para motores de 90 HP
+        if (rpm <= 2500) return 0.65;
+        if (rpm <= 4000) return 0.85;
+        if (rpm <= 4800) return 1.00; // Valor base
+        return 1.30; // 5500 RPM (A fondo)
+    } else {
+        // Para motores de 200 HP (Navegando a la velocidad equivalente de la formación)
+        if (rpm <= 2500) return 0.55; // Va muy relajado (~2000 RPM reales)
+        if (rpm <= 4000) return 0.75; // (~3200 RPM reales)
+        if (rpm <= 4800) return 0.90; // Manteniendo el paso (~3800 RPM reales)
+        return 1.15; // 5500 RPM relativas / Máxima exigencia
+    }
+}
         function calcular() {
         // Dentro de function calcular():
 
