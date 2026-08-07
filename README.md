@@ -173,7 +173,25 @@ table {
                     <div style="display:flex; justify-content:space-between;"><span>2x Mercury 200 HP:</span> <strong style="color:#34d399;">1.70 Gln/MN</strong></div>
                 </div>
             </div>
+<!-- CONDICIÓN DE CORRIENTE -->
+<div class="field-group">
+    <label for="corrienteSelect">Sentido de Navegación:</label>
+    <select id="corrienteSelect">
+        <option value="1.0">Neutro (Aguas Calmas)</option>
+        <option value="1.25">Contra Corriente (Aguas Arriba +25%)</option>
+        <option value="0.85">A Favor de Corriente (Aguas Abajo -15%)</option>
+    </select>
+</div>
 
+<!-- RÉRGMEN DE REVOLUCIONES -->
+<div class="field-group">
+    <label for="rpmSelect">Régimen de Marcha (RPM):</label>
+    <select id="rpmSelect">
+        <option value="1.0">Crucero Táctico (4.000 RPM)</option>
+        <option value="0.80">Velocidad Mínima / Patrullaje (2.500 RPM)</option>
+        <option value="1.40">Máximas Revoluciones (5.500 RPM +40%)</option>
+    </select>
+</div>
             <!-- RESULTADOS -->
             <div style="display: flex; flex-direction: column; gap: 12px;">
                 
@@ -298,6 +316,14 @@ table {
         }
 
         function calcular() {
+        // Dentro de function calcular():
+
+var factorCorriente = parseFloat(document.getElementById('corrienteSelect').value) || 1.0;
+var factorRPM = parseFloat(document.getElementById('rpmSelect').value) || 1.0;
+
+// Factor combinado de corrección operativa
+var factorAjusteOperativo = factorCorriente * factorRPM;
+
             var unidadKey = document.getElementById('unidadSelect').value || "EOFBC_52_2";
             var unidadInfo = unidadesData[unidadKey];
             
@@ -335,7 +361,7 @@ table {
 
             for (var i = 0; i < botesACalcular.length; i++) {
                 var b = botesACalcular[i];
-                var consumoBote = distanciaMN * b.cons;
+                var consumoBote = distanciaMN * (b.cons * factorAjusteOperativo);
                 var pctGastadoBote = b.cap > 0 ? Math.min(100, (consumoBote / b.cap) * 100) : 0;
                 var costoBote = consumoBote * precioGalon;
                 var autoMaxMN = b.cons > 0 ? (b.cap / b.cons) : 0;
@@ -385,7 +411,7 @@ table {
             document.getElementById('btnModoGrupo').onclick = function() { setModo('grupo'); };
             document.getElementById('btnModoInd').onclick = function() { setModo('individual'); };
 
-            var elementIds = ['unidadSelect', 'boteIndSelect', 'distanciaInput', 'unidadDistSelect', 'precioGalonInput'];
+            var elementIds = ['unidadSelect', 'boteIndSelect', 'distanciaInput', 'unidadDistSelect', 'precioGalonInput', 'corrienteSelect', 'rpmSelect'];
             var events = ['input', 'change', 'keyup', 'blur'];
 
             for (var i = 0; i < elementIds.length; i++) {
