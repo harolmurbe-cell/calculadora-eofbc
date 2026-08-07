@@ -175,22 +175,22 @@ table {
             </div>
 <!-- CONDICIÓN DE CORRIENTE -->
 <div class="field-group">
-    <label for="corrienteSelect">Sentido de Navegación:</label>
+    <label for="corrienteSelect">Sentido de Navegación (Corriente):</label>
     <select id="corrienteSelect">
-        <option value="1.0">Neutro (Aguas Calmas)</option>
-        <option value="1.25">Contra Corriente (Aguas Arriba +25%)</option>
+        <option value="1.00" selected>Aguas Calmas / Neutro</option>
+        <option value="1.20">Contra Corriente (Aguas Arriba +20%)</option>
         <option value="0.85">A Favor de Corriente (Aguas Abajo -15%)</option>
     </select>
 </div>
 
 <!-- RÉRGMEN DE REVOLUCIONES -->
 <div class="field-group">
-    <label for="rpmSelect">Régimen de Marcha (RPM del Motor Principal / 90HP):</label>
+    <label for="rpmSelect">Régimen de Marcha (RPM):</label>
     <select id="rpmSelect">
-        <option value="2500">2.500 RPM (Velocidad Mínima / Patrullaje)</option>
-        <option value="4000" selected>4.000 RPM (Crucero Económico)</option>
-        <option value="4800">4.800 RPM (Crucero Táctico de Formación)</option>
-        <option value="5500">5.500 RPM (Máximas Revoluciones / Interdicción)</option>
+        <option value="0.75">2.500 RPM (Velocidad Mínima / Patrullaje)</option>
+        <option value="0.90">4.000 RPM (Crucero Económico)</option>
+        <option value="1.00" selected>4.800 RPM (Crucero Táctico)</option>
+        <option value="1.25">5.500 RPM (Máximas Revoluciones / Interdicción)</option>
     </select>
 </div>
             <!-- RESULTADOS -->
@@ -339,8 +339,8 @@ function obtenerFactorRPM(rpmSeleccionadas, hpBote) {
 var factorCorriente = parseFloat(document.getElementById('corrienteSelect').value) || 1.0;
 var factorRPM = parseFloat(document.getElementById('rpmSelect').value) || 1.0;
 
-// Factor combinado de corrección operativa
-var factorAjusteOperativo = factorCorriente * factorRPM;
+// En el cálculo del bote:
+var consumoBote = distanciaMN * bote.cons * factorCorriente * factorRPM;
 
             var unidadKey = document.getElementById('unidadSelect').value || "EOFBC_52_2";
             var unidadInfo = unidadesData[unidadKey];
